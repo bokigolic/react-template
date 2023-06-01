@@ -4,7 +4,7 @@ import './App.css';
 const Rate = () => {
   const [score, setScore] = useState('10');
   const [comment, setComment] = useState('');
-  const [result, setResult] = useState('');
+  const [results, setResults] = useState([]);
 
   const handleChange = (e) => {
     setScore(e.target.value);
@@ -13,10 +13,16 @@ const Rate = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (Number(score) <= 5 && comment.length <= 10) {
-      setResult('Please provide a comment explaining why the experience was poor.');
+      setResults('Please provide a comment explaining why the experience was poor.');
       return;
     }
-    setResult(`Form submitted.<br />Comment: ${comment}<br />Score: ${score}`);
+    const result = {
+      score: score,
+      comment: comment,
+    };
+    setResults([...results, result]);
+    setScore('10');
+    setComment('');
     console.log('Form submitted');
     console.log('Score:', score);
   };
@@ -42,12 +48,31 @@ const Rate = () => {
           </div>
           <div>
             <label>Comment: </label>
-            <textarea onChange={handleChangeArea}></textarea>
+            <textarea onChange={handleChangeArea} value={comment}></textarea>
           </div>
           <button type="submit">Submit</button>
         </fieldset>
       </form>
-      <div className="Result" dangerouslySetInnerHTML={{ __html: result }}></div>
+      {results.length > 0 && (
+        <table className="ResultTable">
+          <thead>
+            <tr>
+              <th>Comment</th>
+              <th>Result</th>
+              <th>Star</th>
+            </tr>
+          </thead>
+          <tbody>
+            {results.map((result, index) => (
+              <tr key={index}>
+                <td>{result.comment}</td>
+                <td>Form submitted</td>
+                <td>{result.score}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
