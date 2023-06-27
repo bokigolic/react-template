@@ -21,7 +21,7 @@ const Rate = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (Number(score) <= 5 && comment.length <= 10) {
-      setResults('Please provide a comment explaining why the experience was poor.');
+      setResults([{ score: score, comment: 'Please provide a comment explaining why the experience was poor.' }]);
       return;
     }
     const result = {
@@ -34,6 +34,7 @@ const Rate = () => {
     console.log('Form submitted');
     console.log('Score:', score);
   };
+  
 
   return (
     <div className="container">
@@ -41,7 +42,7 @@ const Rate = () => {
         <fieldset>
           <h2>Feedback Form</h2>
           <div className="Field">
-            <label>Score: {score} &#9733;</label>
+            <label className='score'>Score: {score} &#9733;</label>
             <input type="range" min="0" max="10" value={score} onChange={handleChange} />
           </div>
           <div>
