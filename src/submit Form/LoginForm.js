@@ -33,9 +33,9 @@ const LoginForm = () => {
 
   return (
     <div className='container'>
-      <h2>Login Form</h2>
       <form onSubmit={handleSubmit}>
         <div>
+          <h2>Login Form</h2>
           <label htmlFor="username">Username:</label>
           <input
             type="text"
